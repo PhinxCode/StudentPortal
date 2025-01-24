@@ -1,5 +1,6 @@
 C:\Users\codep\OneDrive\Documentos\GitProjects\StudentPortal\bin\Debug\net9.0\appsettings.Development.json
 C:\Users\codep\OneDrive\Documentos\GitProjects\StudentPortal\bin\Debug\net9.0\appsettings.json
+C:\Users\codep\OneDrive\Documentos\GitProjects\StudentPortal\bin\Debug\net9.0\package-lock.json
 C:\Users\codep\OneDrive\Documentos\GitProjects\StudentPortal\bin\Debug\net9.0\package.json
 C:\Users\codep\OneDrive\Documentos\GitProjects\StudentPortal\bin\Debug\net9.0\StudentPortal.staticwebassets.runtime.json
 C:\Users\codep\OneDrive\Documentos\GitProjects\StudentPortal\bin\Debug\net9.0\StudentPortal.staticwebassets.endpoints.json
