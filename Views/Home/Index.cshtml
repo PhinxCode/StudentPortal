@@ -3,6 +3,18 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Portal Estudiantil Ficticio</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="text-center mt-4">
+    <!-- Botón para ir al formulario -->
+    <form asp-controller="Students" asp-action="Add" method="get" style="display:inline;">
+        <button type="submit" class="btn btn-primary me-2">Formulario</button>
+    </form>
+
+    <!-- Botón para ver la lista de estudiantes -->
+    <form asp-controller="Students" asp-action="List" method="get" style="display:inline;">
+        <button type="submit" class="btn btn-secondary">Lista de Estudiantes</button>
+    </form>
 </div>
