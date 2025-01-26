@@ -25,4 +25,6 @@ Make sure you have the following installed:
 
 # Apply existing migrations
 
+dotnet ef migrations add <MigrationName>
+
 dotnet ef database update
