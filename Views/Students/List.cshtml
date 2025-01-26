@@ -1,8 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-@model List<StudentPortal.Models.Entities.Student>
+﻿@model List<StudentPortal.Models.Entities.Student>
 
 <div class="container mt-5">
     <h1 class="text-center text-white mb-4">Lista De Estudiantes</h1>
@@ -31,7 +27,13 @@
                         <td>
                             <a asp-controller="Students" asp-action="Edit" asp-route-id="@student.Id"
                                 class="btn btn-sm btn-warning">Edit</a>
-                            <a asp-action="Delete" asp-route-id="@student.Id" class="btn btn-sm btn-danger">Delete</a>
+
+                            <form asp-controller="Students" asp-action="Delete" method="post" style="display:inline;"
+                                onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                @Html.AntiForgeryToken() <!-- Protección CSRF -->
+                                <input type="hidden" name="id" value="@student.Id" />
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 }

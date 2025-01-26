@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using StudentPortal.Data;
 using StudentPortal.Models;
 using StudentPortal.Models.Entities;
@@ -76,6 +77,25 @@ public class StudentsController : Controller
             student.Subscribed = model.Subscribed;
 
             await dbContext.SaveChangesAsync();
+        }
+
+        return RedirectToAction("List", "Students");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var student = await dbContext.Students.FindAsync(id);
+
+        if (student is not null)
+        {
+            dbContext.Students.Remove(student); // Eliminar el objeto obtenido desde la BD
+            await dbContext.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Student deleted successfully!";
+        }
+        else
+        {
+            TempData["ErrorMessage"] = "Student not found!";
         }
 
         return RedirectToAction("List", "Students");
