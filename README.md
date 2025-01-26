@@ -4,7 +4,7 @@
 
 Make sure you have the following installed:
 
-- .NET SDK (7.0 or later)
+- .NET SDK (9.0 or later)
 - SQL Server (or a compatible database)
 - Entity Framework Core tools
 
