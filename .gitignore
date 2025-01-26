@@ -1,0 +1,78 @@
+
+# Ignore Visual Studio specific files
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore build output and dependencies
+bin/
+obj/
+out/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+*.vs/
+*.nupkg
+*.snupkg
+TestResults/
+
+# Ignore sensitive files
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
+secrets.json
+
+# Use environment-specific config templates instead
+!appsettings.example.json
+
+# Ignore dependency packages
+**/node_modules/
+npm-debug.log
+
+# Ignore coverage reports
+coverage/
+*.coverlet.*
+*.opencover.xml
+lcov.info
+
+# Ignore logs and temporary files
+logs/
+*.log
+**/*.log
+*.tmp
+*.bak
+*.swp
+
+# Ignore IDE configurations
+.idea/
+*.iml
+*.csproj.user
+
+# Ignore database files
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Ignore compiled files and extensions
+*.obj
+*.rptproj
+*.rptproj.user
+*.pyc
+*.pyo
+*.class
+*.jar
+*.war
+
+# Ignore image editor and thumbnail files
+Thumbs.db
+.DS_Store
+._*
+
+# Ignore Publish output
+publish/
+wwwroot/
