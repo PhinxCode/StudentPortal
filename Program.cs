@@ -12,7 +12,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.WebHost.UseUrls("http://localhost:5220", "https://localhost:7215");
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

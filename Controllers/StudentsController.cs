@@ -1,57 +1,92 @@
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentPortal.Data;
 using StudentPortal.Models;
 using StudentPortal.Models.Entities;
 
-namespace StudentPortal.Controllers
+public class StudentsController : Controller
 {
-    public class StudentsController : Controller
+    private readonly ApplicationDbContext dbContext;
+
+    public StudentsController(ApplicationDbContext dbContext)
     {
-        private readonly ApplicationDbContext dbContext;
+        this.dbContext = dbContext;
+    }
 
-        public StudentsController(ApplicationDbContext dbContext)
+    [HttpGet]
+    public IActionResult Add()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(AddStudentViewModel model)
+    {
+        if (!ModelState.IsValid)
         {
-            this.dbContext = dbContext;
+            return View(model); // Si hay errores, mostrar el formulario con los mensajes de validación
         }
 
-        // GET: StudentsController
-        [HttpGet]
-        public ActionResult Add()
+        var student = new Student
         {
-            return View();
-        }
+            FirstName = CapitalizeFirstLetter(model.FirstName),
+            LastName = CapitalizeFirstLetter(model.LastName),
+            Phone = model.Phone,
+            Email = model.Email?.ToLower(),
+            Address = CapitalizeFirstLetter(model.Address),
+            Subscribed = model.Subscribed,
+        };
 
-        [HttpPost]
-        public async Task<ActionResult> Add(AddStudentViewModel model)
+        await dbContext.Students.AddAsync(student);
+        await dbContext.SaveChangesAsync();
+
+        ModelState.Clear(); // Limpia el formulario después de enviar los datos
+        TempData["SuccessMessage"] = "Student added successfully!";
+
+        return View(); // Retorna la vista vacía después de limpiar el formulario
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> List()
+    {
+        var students = await dbContext.Students.ToListAsync();
+        return View(students);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(Guid id)
+    {
+        var student = await dbContext.Students.FindAsync(id);
+
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(Student model)
+    {
+        var student = await dbContext.Students.FindAsync(model.Id);
+
+        if (student is not null)
         {
-            var student = new Student
-            {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Phone = model.Phone,
-                Email = model.Email,
-                Address = model.Address,
-                DateOfBirth = model.DateOfBirth,
-                Subscribed = model.Subscribed,
-            };
+            student.FirstName = model.FirstName;
+            student.LastName = model.LastName;
+            student.Phone = model.Phone;
+            student.Email = model.Email;
+            student.Subscribed = model.Subscribed;
 
-            Console.WriteLine(
-                $"parametros: FirstName={student.FirstName}, LastName={student.LastName}, Phone={student.Phone}, Email={student.Email}, Address={student.Address}, DateOfBirth={student.DateOfBirth}, Subscribed={student.Subscribed}"
-            );
-
-            await dbContext.Students.AddAsync(student);
             await dbContext.SaveChangesAsync();
-            // return dbContext.Students.AddAsync();
-            return View();
         }
 
-        [HttpGet]
-        public async Task<ActionResult> List()
-        {
-            var students = await dbContext.Students.ToListAsync();
+        return RedirectToAction("List", "Students");
+    }
 
-            return View(students);
-        }
+    /**** funcion capitalizar ****/
+    private string? CapitalizeFirstLetter(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return value;
+
+        return char.ToUpper(value[0]) + value.Substring(1).ToLower();
     }
 }
