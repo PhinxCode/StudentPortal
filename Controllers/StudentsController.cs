@@ -59,7 +59,7 @@ public class StudentsController : Controller
     {
         var student = await dbContext.Students.FindAsync(id);
 
-        return View();
+        return View("Edit", student);
     }
 
     [HttpPost]
